@@ -34,8 +34,10 @@ namespace Forms
 
         private void configurationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form f = new ConfigForm();
+            Form f = new ConfigForm(m,n,i,p);
+            
             f.ShowDialog();
+            InitTable();
         }
 
         private void timer1_Tick(object sender, EventArgs e)

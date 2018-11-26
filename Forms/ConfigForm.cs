@@ -16,8 +16,16 @@ namespace Forms
         public ConfigForm()
         {
             InitializeComponent();
-        }
 
+        }
+        public ConfigForm(int m,int n,int i, int p)
+        {
+            InitializeComponent();
+            numColumns.Value = m;
+            numRows.Value = n;
+            numPictures.Value = i;
+            numPairs.Value = p;
+        }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
