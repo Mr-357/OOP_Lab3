@@ -12,7 +12,7 @@ namespace DataClasses
         public bool flipped;
         public string bkg;
         public string img;
-        private Timer timer;
+        public Timer timer;
         public Tile(string bkg,string img)
         {
             flipped = false;
@@ -23,7 +23,7 @@ namespace DataClasses
             base.Click += new EventHandler(NewClick);
             
             timer = new Timer();
-            timer.Interval = 1500;
+            timer.Interval = 749;
             timer.Tick += new EventHandler(TimerEnd);
         }
         public void Flip()
@@ -31,7 +31,7 @@ namespace DataClasses
             if (this.ImageLocation == bkg && this.img != null)
             {
                 this.ImageLocation = this.img;
-                this.timer.Start();
+            
                 return;
             }
             else if (this.ImageLocation == img)
@@ -47,7 +47,7 @@ namespace DataClasses
            
 
             Tile t = (Tile)source;
-            if (t.img != null)
+            if (t.img != null&& !t.flipped)
             {
                 
                // t.ImageLocation = t.img;
@@ -55,7 +55,7 @@ namespace DataClasses
                 
                 
             }
-            else
+            else if (t.img==null)
             {
                t.ImageLocation = null;
                t.flipped = true;
@@ -65,6 +65,7 @@ namespace DataClasses
         {
             Timer t = (Timer)source;
             PlayingField.Instance.ShiftMatching();
+            //PlayingField.Instance.ShiftMatching();
             t.Stop();
         }
     }

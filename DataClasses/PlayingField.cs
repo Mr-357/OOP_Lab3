@@ -9,7 +9,8 @@ namespace DataClasses
 {
     public class PlayingField
     {
-        private List<Tile> _tiles; //maybe not needed?
+        #region attributes
+        private List<Tile> _tiles; 
         private Tile[] _matching;
         private List<string> _images;
         private int _numTiles;
@@ -18,6 +19,7 @@ namespace DataClasses
         private int _requiredPairs;
         private int _flipped;
         Random rng = new Random();
+        #endregion
         private PlayingField()
         {
            
@@ -58,6 +60,11 @@ namespace DataClasses
             {
                 _matching[0].flipped = _matching[1].flipped = true;
                 _flipped++;
+                ShiftMatching();
+            }
+            else
+            {
+                _matching[1].timer.Start(); 
             }
         }
         public Tile[] Matching { get => _matching; set => _matching = value; }
@@ -85,21 +92,22 @@ namespace DataClasses
                 if (!_matching[1].flipped)
                 {
                     _matching[1].Flip();
+                   
                 }
-                _matching[0] = _matching[1];
-                _matching[1] = null;
-            }
-            else
-            {
-                if (!_matching[0].flipped)
+               
+            
+               if (!_matching[0].flipped)
                 {
                     _matching[0].Flip();
+                   
                 }
                 _matching[0] = null;
+                _matching[1] = null;
             }
         }
         public void Generate(int dim,int img,int req)
         {
+            _tiles.Clear();
             _numImage = img;
             _requiredPairs = req;
             _flipped = 0;
@@ -133,7 +141,10 @@ namespace DataClasses
             _numTiles--;
             return retval;
         }
-        
+        public bool Won()
+        {
+            return _flipped == _requiredPairs;
+        }
     }
 
 }

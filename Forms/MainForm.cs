@@ -21,13 +21,54 @@ namespace Forms
         public MainForm()
         {
             InitializeComponent();
-            InitTable(); // ZAMENI OVO SA LOADFROMFILE??
+            InitTable();
             mainMenu.BringToFront();
-
+            lblTimer.BringToFront();
+            label1.BringToFront();
         }
 
         private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            InitTable();
+        }
+
+        private void configurationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form f = new ConfigForm();
+            f.ShowDialog();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            totalTime++;
+            // DateTime tmp = new DateTime(totalTime);
+            // lblTimer.Text = tmp.ToLongTimeString().ToString();
+            lblTimer.Text = totalTime.ToString();
+            if (PlayingField.Instance.Won())
+            {
+                Winner();
+            }
+        }
+        private void Winner()
+        {
+            timer1.Stop();
+            foreach (var tile in panel1.Controls[0].Controls)
+            {
+                Tile t = (Tile)tile;
+                t.Flip();
+            }
+            MessageBox.Show("Time: " + lblTimer.Text, "You WON", MessageBoxButtons.OK);
+            InitTable();
+        }
+        private void revealTilesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            timer1.Stop();
+            foreach (var tile in panel1.Controls[0].Controls)
+            {
+                Tile t = (Tile)tile;
+                t.Flip();
+            }
+            MessageBox.Show("Time: " + lblTimer.Text,"You failed",MessageBoxButtons.OK);
             InitTable();
         }
 
@@ -59,6 +100,10 @@ namespace Forms
             Table.Anchor = AnchorStyles.Top;
             Table.Dock = DockStyle.Fill;
             StartTimer();
+            timer1.Enabled = true;
+            timer1.Start();
+            lblTimer.Visible = true;
+            totalTime = 0;
         }
 
         private void LoadFromFile()
@@ -78,7 +123,7 @@ namespace Forms
                 m = 6;
                 n = 10;
                 i = 5;
-                p = 5;
+                p = 10;
             }
         }
 

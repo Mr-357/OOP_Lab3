@@ -64,12 +64,19 @@
             this.revealTilesToolStripMenuItem.Name = "revealTilesToolStripMenuItem";
             this.revealTilesToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
             this.revealTilesToolStripMenuItem.Text = "Reveal Tiles";
+            this.revealTilesToolStripMenuItem.Click += new System.EventHandler(this.revealTilesToolStripMenuItem_Click);
             // 
             // configurationToolStripMenuItem
             // 
             this.configurationToolStripMenuItem.Name = "configurationToolStripMenuItem";
             this.configurationToolStripMenuItem.Size = new System.Drawing.Size(93, 20);
             this.configurationToolStripMenuItem.Text = "Configuration";
+            this.configurationToolStripMenuItem.Click += new System.EventHandler(this.configurationToolStripMenuItem_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // label1
             // 
@@ -79,7 +86,6 @@
             this.label1.Size = new System.Drawing.Size(33, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "Time:";
-            this.label1.Visible = false;
             // 
             // lblTimer
             // 
