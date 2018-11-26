@@ -34,7 +34,7 @@ namespace DataClasses
             _images.Clear();
             foreach (string f in Directory.GetFiles("./data/", "*.jpg"))
             {
-                if (f != "./data/background.jpg")
+                if (f != "./data/background.jpg" && f!="./data/zadatak.jpg")
                 {
                     _images.Add(f);
                 }

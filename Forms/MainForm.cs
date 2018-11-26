@@ -17,7 +17,9 @@ namespace Forms
 
     {
         private uint totalTime;
+        private Tile old;
         private int m, n, i, p;
+        private int countm;
         public MainForm()
         {
             InitializeComponent();
@@ -25,6 +27,7 @@ namespace Forms
             mainMenu.BringToFront();
             lblTimer.BringToFront();
             label1.BringToFront();
+            countm = 0;
         }
 
         private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
@@ -49,6 +52,38 @@ namespace Forms
             if (PlayingField.Instance.Won())
             {
                 Winner();
+            }
+            MoveDuck();
+
+        }
+        private void MoveDuck()
+        {
+           Tile t = (Tile)panel1.Controls[0].Controls[(countm)];
+            while (t.flipped)
+            {
+                t = (Tile)panel1.Controls[0].Controls[(++countm)];
+                CheckRange();
+            }
+            if (old != null && !old.flipped && !(old.ImageLocation==old.img ))
+            {
+                old.ImageLocation = old.bkg;
+            }
+           
+            if (t.ImageLocation == t.img)
+            {
+                t = (Tile)panel1.Controls[0].Controls[(++countm)];
+                CheckRange();
+            }
+            t.ImageLocation = "./data/zadatak.jpg";
+            old = t;
+            countm++;
+            CheckRange();
+        }
+        private void CheckRange()
+        {
+            if (countm >= m * n)
+            {
+                countm = 0;
             }
         }
         private void Winner()
@@ -76,6 +111,7 @@ namespace Forms
 
         private void InitTable()
         {
+            countm = 0;
             LoadFromFile();
             panel1.Controls.Clear();
             TableLayoutPanel Table = new TableLayoutPanel();
